@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="578457653704-r5ohfhddkhiotd15kemdaosi5e7c9srt.apps.googleusercontent.com">
+  <style>
+    body {
+      background-image: url("https://images.unsplash.com/photo-1497091071254-cc9b2ba7c48a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1366&h=768&fit=crop&ixid=eyJhcHBfaWQiOjF9");
+      background-size: cover;
+      color: white;
+      background-repeat: no-repeat
+    }
+
+    section {
+      min-height: 740px;
+    }
+
+    h1 {
+      font-family: "Lucida Console", Times, monospace;
+    }
+
+    .form-control {
+      background: rgba(241, 245, 241, 0.753);
+    }
+
+    a {
+      background: rgba(139, 137, 132, 0.404)
+    }
+  </style>
+  <title>Fancy Todo</title>
+</head>
+
+<body onload="startTime()">
+  <!-- REGISTER -->
+  <div class="container" id="register-page"></div>
+  <!-- LOGIN -->
+  <div class="container" id="login-page">
+    <div class="row">
+      <div class="g-signin2" data-onsuccess="onSignIn" id="google-signin" ></div>
+      <a href="#" onclick="signOut();">Sign out</a>
+    </div>
+  </div>
+  <!-- NAVBAR -->
+  <div class="container-fluid" id='navbar'></div>
+  <!-- MAIN -->
+  <section id="main"></section>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
