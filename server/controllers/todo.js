@@ -46,10 +46,8 @@ class ControllerTodo {
       .catch(err => {res.status(500).json({message: err.message})})
   }
   static update(req, res) {
-    // req.body.checked = (req.body.checked === 'true' || req.body.checked === true) ? true : false
     Todo.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
     .then(todo => {
-      console.log(todo)
       res.status(200).json(todo)
     })
     .catch(err => res.status(500).json({message: err.message}))

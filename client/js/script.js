@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log(localStorage.token)
     showRegisterPage()
     $('#login-route').on('click', function () {
         $('#register-page').hide()
@@ -20,69 +19,72 @@ function showUpdateTodo(taskId) {
             url: `http://localhost:3000/todos/${taskId}`,
             type: 'get'
         })
-            .done(function (response) {
-                $('#update-todo').html(`
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Title</label>
-                            <input type="text" class="form-control" id="title-update-todo" value="${response.title}">
-                        </div>
-              x          <div class="form-group">
-                            <label for="formGroupExampleInput2">Description</label>
-                            <input type="text" class="form-control" id="description-update-todo" value="${response.description}">
-                        </div>
-                        <div class="form-group">
-                        <label for="formGroupExampleInput2">Due date</label>
-                        <input type="text" class="form-control" id="dueDate-update-todo" value="${response.dueDate}">
-                        </div>
-                        <button type="submit" class="btn btn-light text-center login-button">Edit</button>
-                    `)
-                    $('#update-todo').on('submit',function(){
-                        let title = $('#title-update-todo').val()
-                        let description = $('#description-update-todo').val()
-                        let dueDate = $('#dueDate-update-todo').val()
-                        let token = localStorage.token
-                        $.ajax({
-                            url: `http://localhost:3000/todos/${taskId}`,
-                            type: 'put',
-                            headers: { token },
-                            data: {
-                                title,
-                                description,
-                                dueDate
-                            }
-                        })
-                        .done(function(response){
-                            getUser(response.userId)
-                        })
-                        .fail(function(err){
-                        })
-                    })
+        .done(function (response) {
+            $('#update-todo').html(`
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Title</label>
+                        <input type="text" class="form-control" id="title-update-todo" value="${response.title}">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Description</label>
+                        <input type="text" class="form-control" id="description-update-todo" value="${response.description}">
+                    </div>
+                    <div class="form-group">
+                    <label for="formGroupExampleInput2">Due date</label>
+                    <input type="text" class="form-control" id="dueDate-update-todo" value="${response.dueDate}">
+                    </div>
+                    <button type="submit" class="btn btn-light text-center login-button">Edit</button>
+                `)
+            $('#update-todo').on('submit',function(){
+                let title = $('#title-update-todo').val()
+                let description = $('#description-update-todo').val()
+                let dueDate = $('#dueDate-update-todo').val()
+                let token = localStorage.token
+                $.ajax({
+                    url: `http://localhost:3000/todos/${taskId}`,
+                    type: 'put',
+                    headers: { token },
+                    data: {
+                        title,
+                        description,
+                        dueDate
+                    }
                 })
+                .done(function(response){
+                    getUser(response.userId)
+                })
+                .fail(function(err){
+                    console.log(err)
+                })
+            })
+        })
     }
-        }
+}
         
-        function updateTodo(taskId){
-            
-            let title = $('#title-update-todo').val()
-            let description = $('#description-update-todo').val()
-            let dueDate = $('#dueDate-update-todo').val()
-            let token = localStorage.token
-            $.ajax({
-                url: `http://localhost:3000/todos/${taskId}`,
-                type: 'put',
-                headers: { token },
-                data: {
-                    title,
-                    description,
-                    dueDate
-                }
-            })
-            .done(function(response){
-                getUser(response.userId)
-            })
-            .fail(function(err){
-            })
+function updateTodo(taskId){
+    
+    let title = $('#title-update-todo').val()
+    let description = $('#description-update-todo').val()
+    let dueDate = $('#dueDate-update-todo').val()
+    let token = localStorage.token
+    $.ajax({
+        url: `http://localhost:3000/todos/${taskId}`,
+        type: 'put',
+        headers: { token },
+        data: {
+            title,
+            description,
+            dueDate
         }
+    })
+    .done(function(response){
+        getUser(response.userId)
+    })
+    .fail(function(err){
+        console.log(err)
+    })
+}
+
 function main(response, user) {
     $('#login-page').hide()
     $('#register-page').hide()
@@ -95,8 +97,6 @@ function main(response, user) {
         $('#create-todo').show()
         $('#show-list-task').hide()
     })
-    $
-
 }
 
 
@@ -108,14 +108,13 @@ function deleteTodo(taskId) {
         type: 'delete',
         headers: { token, taskId }
     })
-        .done(function (response) {
-            getUser(response.userId)
-            // main(response)
+    .done(function (response) {
+        getUser(response.userId)
 
-        })
-        .fail(function (err) {
-            alert(err.responseJSON.error);
-        })
+    })
+    .fail(function (err) {
+        console.log(err)
+    })
 }
 
 function createTodo() {
@@ -134,12 +133,12 @@ function createTodo() {
             title, description, dueDate
         }
     })
-        .done(function (response) {
-            getUser(response._id)
-        })
-        .fail(function (err) {
-            alert(err.responseJSON.error);
-        })
+    .done(function (response) {
+        getUser(response._id)
+    })
+    .fail(function (err) {
+        console.log(err)
+    })
 
 }
 
@@ -158,15 +157,16 @@ function getUser(userId) {
             type: 'get',
             headers: { token: localStorage.token }
         })
-            .done(function (response) {
-                showMainPage(response, user)
-                main(response, user)
-            })
-            .fail(function (err) {
-                console.log(err)
-            })
+        .done(function (response) {
+            showMainPage(response, user)
+            main(response, user)
+        })
+        .fail(function (err) {
+            console.log(err)
+        })
     })
 }
+
 function onSignIn(googleUser) {
     let { id_token } = googleUser.getAuthResponse();
     $.ajax({
@@ -181,6 +181,7 @@ function onSignIn(googleUser) {
             console.log(err)
         })
 }
+
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
@@ -201,13 +202,13 @@ function login() {
             password
         }
     })
-        .done(function (response) {
-            localStorage.setItem('token', response.access_token)
-            getUser(response.id)
-        })
-        .fail(function (err) {
-            alert(err.responseJSON.error);
-        })
+    .done(function (response) {
+        localStorage.setItem('token', response.access_token)
+        getUser(response.id)
+    })
+    .fail(function (err) {
+        
+    })
 }
 
 function register() {
@@ -224,15 +225,15 @@ function register() {
             password
         }
     })
-        .done(function (response) {
-            localStorage.setItem('token', response)
-            main(response)
-            getUser()
+    .done(function (response) {
+        localStorage.setItem('token', response)
+        main(response)
+        getUser()
 
-        })
-        .fail(function (err) {
-            alert(err.responseJSON.error);
-        })
+    })
+    .fail(function (err) {
+        console.log(err)
+    })
 
 }
 
@@ -245,37 +246,37 @@ function showTodo() {
         type: 'get',
         headers: { token }
     })
-        .done(function (response) {
-            $('#show-list-task').html('')
-            $('#create-todo').hide()
-            $.each(response, function (i, tasks) {
-                $('#show-list-task').prepend(
-                    `
-                <div class="card text-center mt-3 bg-dark">
-                    <div class="card-header">
-                        ${tasks.data.title}
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">${tasks.data.description}</p>
-                            <div class = "row">
-                            <div class="col-md-6 text-right">
-                                <a href="#" id="delete-task" onclick="deleteTodo('${tasks.data._id}')" class=""> Delete </a>
-                            </div>
-                            <div class="col-md-6 text-left">
-                                <a href="#" id="update-task" onclick="showUpdateTodo('${tasks.data._id}')" class=""> Edit </a>
-                            </div>
+    .done(function (response) {
+        $('#show-list-task').html('')
+        $('#create-todo').hide()
+        $.each(response, function (i, tasks) {
+            $('#show-list-task').prepend(
+                `
+            <div class="card text-center mt-3 bg-dark">
+                <div class="card-header">
+                    ${tasks.data.title}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">${tasks.data.description}</p>
+                        <div class = "row">
+                        <div class="col-md-6 text-right">
+                            <a href="#" id="delete-task" onclick="deleteTodo('${tasks.data._id}')" class=""> Delete </a>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <a href="#" id="update-task" onclick="showUpdateTodo('${tasks.data._id}')" class=""> Edit </a>
                         </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        ${tasks.data.dueDate}
-                    </div>
-                </div>`
-                )
-            })
+                </div>
+                <div class="card-footer text-muted">
+                    ${tasks.data.dueDate}
+                </div>
+            </div>`
+            )
         })
-        .fail(function (err) {
-            alert(err.responseJSON.error);
-        })
+    })
+    .fail(function (err) {
+        console.log(err)
+    })
 }
 
 function showMainPage(todos, user) {

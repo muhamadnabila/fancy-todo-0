@@ -97,7 +97,6 @@ class ControllerUser {
         })
         .then(ticket=>{
           const payload = ticket.getPayload();
-          console.log(payload)
         User.findOne({ email: payload.email })
           .then(user => {
             if (!user) {
@@ -108,7 +107,6 @@ class ControllerUser {
               })	
 
             } else {
-              console.log('masuk user sudah ada')
               return user
             }
           })
@@ -117,7 +115,6 @@ class ControllerUser {
               username: user.name,
               email: user.email
             })
-            console.log('ini')
             res.status(200).json({ access_token })
           })
           .catch(err => {
@@ -125,7 +122,6 @@ class ControllerUser {
           })
         })
         .catch(err=>{
-          console.log(err)
         })
     }
 }
