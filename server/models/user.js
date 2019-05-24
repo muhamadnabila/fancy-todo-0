@@ -15,8 +15,9 @@ const userSchema = new Schema({
         required: [true, `Password required.`],
       },
 })
+let User = mongoose.model('User',userSchema)
 User.schema.path('email').validate(function (input) {
-    User.findOne({email: input})
+   return User.findOne({email: input})
       .then(found => {
         if(found) {
           return false
@@ -27,6 +28,6 @@ User.schema.path('email').validate(function (input) {
       .catch(err => {console.log(err)})
   }, 'Email has been used.')
   
-let User = mongoose.model('User',userSchema)
 
 module.exports = User
+

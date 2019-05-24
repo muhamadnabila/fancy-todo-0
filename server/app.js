@@ -3,9 +3,9 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const mongoose = require('mongoose')
-const port = 3000
+const port = process.env.PORT
 const cors = require('cors') 
-mongoose.connect('mongodb://localhost:27017/fancyTodo', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://root:admin@cluster0-qtp0t.gcp.mongodb.net/fancytodo?retryWrites=true', {useNewUrlParser: true});
 
 app.use(cors())
 app.use(express.json())
