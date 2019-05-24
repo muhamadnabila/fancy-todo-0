@@ -16,7 +16,7 @@ function showUpdateTodo(taskId) {
         $('#show-list-task').hide()
         $('#add-task').hide()
         $.ajax({
-            url: `http://localhost:3000/todos/${taskId}`,
+            url: `http://34.87.118.203/todos/${taskId}`,
             type: 'get'
         })
         .done(function (response) {
@@ -41,7 +41,7 @@ function showUpdateTodo(taskId) {
                 let dueDate = $('#dueDate-update-todo').val()
                 let token = localStorage.token
                 $.ajax({
-                    url: `http://localhost:3000/todos/${taskId}`,
+                    url: `http://34.87.118.203/todos/${taskId}`,
                     type: 'put',
                     headers: { token },
                     data: {
@@ -68,7 +68,7 @@ function updateTodo(taskId){
     let dueDate = $('#dueDate-update-todo').val()
     let token = localStorage.token
     $.ajax({
-        url: `http://localhost:3000/todos/${taskId}`,
+        url: `http://34.87.118.203/todos/${taskId}`,
         type: 'put',
         headers: { token },
         data: {
@@ -104,7 +104,7 @@ function deleteTodo(taskId) {
     event.preventDefault()
     let token = localStorage.token
     $.ajax({
-        url: `http://localhost:3000/todos/${taskId}`,
+        url: `http://34.87.118.203/todos/${taskId}`,
         type: 'delete',
         headers: { token, taskId }
     })
@@ -126,7 +126,7 @@ function createTodo() {
     let token = localStorage.token
 
     $.ajax({
-        url: 'http://localhost:3000/todos',
+        url: 'http://34.87.118.203/todos',
         type: 'post',
         headers: { token },
         data: {
@@ -147,13 +147,13 @@ function createTodo() {
 
 function getUser(userId) {
     $.ajax({
-        url: `http://localhost:3000/users/${userId}`,
+        url: `http://34.87.118.203/users/${userId}`,
         type: 'get',
         headers: { token: localStorage.token }
     })
     .done(function(user){
         $.ajax({
-            url: 'http://localhost:3000/todos',
+            url: 'http://34.87.118.203/todos',
             type: 'get',
             headers: { token: localStorage.token }
         })
@@ -170,7 +170,7 @@ function getUser(userId) {
 function onSignIn(googleUser) {
     let { id_token } = googleUser.getAuthResponse();
     $.ajax({
-        url: 'http://localhost:3000/users/login/google',
+        url: 'http://34.87.118.203/users/login/google',
         type: 'post',
         headers: { id_token }
     })
@@ -195,7 +195,7 @@ function login() {
     let email = $('#email-input-log').val()
     let password = $('#password-input-log').val()
     $.ajax({
-        url: 'http://localhost:3000/users/login',
+        url: 'http://34.87.118.203/users/login',
         type: 'post',
         data: {
             email,
@@ -217,7 +217,7 @@ function register() {
     let username = $('#username-input-reg').val()
     let password = $('#password-input-reg').val()
     $.ajax({
-        url: 'http://localhost:3000/users',
+        url: 'http://34.87.118.203/users',
         type: 'post',
         data: {
             username,
@@ -242,7 +242,7 @@ function register() {
 function showTodo() {
     let token = localStorage.token
     $.ajax({
-        url: 'http://localhost:3000/todos',
+        url: 'http://34.87.118.203/todos',
         type: 'get',
         headers: { token }
     })
